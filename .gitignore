@@ -4,8 +4,8 @@ __pycache__/
 *.env
 
 # Logs
-logs/
-*.log
+4_logs/
+
 
 # Airflow
 airflow.cfg
@@ -17,3 +17,9 @@ airflow.cfg
 *.swp
 .idea/
 .vscode/
+
+image-2.png
+image-4.png
+image-3.png
+image-1.png
+image.png
