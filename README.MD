@@ -24,7 +24,9 @@ Why travelers visit certain destinations and what type of tourism categories att
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
-![alt text](image.png)
+<p align="center">
+  <img src="images/image.png" width="700"/>
+</p>
 
 (ETL pipeline showing Airdna API, Python ETL scripts, Airflow orchestration, and Azure SQL Database)
 
@@ -92,7 +94,9 @@ FROM avg_rev a
 INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
 WHERE State_Rank = 1;
 
-![alt text](image-1.png)
+<p align="center">
+  <img src="images/image-1.png" width="700"/>
+</p>
 
 ✅ Result:
 Virginia → Virginia Beach had the highest average annual Airbnb revenue.
@@ -107,7 +111,9 @@ FROM [dbo].[Airbnb_Listings]
 WHERE City = 'Virginia Beach' 
   AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
 
-![alt text](image-2.png)
+<p align="center">
+  <img src="images/image-2.png" width="700"/>
+</p>
 
 ✅ Insight:
 
@@ -126,7 +132,9 @@ WHERE Bedrooms <> 0 AND City = 'Virginia Beach'
 GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
-![alt text](image-3.png)
+<p align="center">
+  <img src="images/image-3.png" width="700"/>
+</p>
 
 ✅ Recommendation:
 
@@ -151,7 +159,9 @@ PIVOT
     FOR Category IN (Historical, Urban, Adventure, Nature, Cultural, Beach)
 ) AS PivotTable;
 
-![alt text](image-4.png)
+<p align="center">
+  <img src="images/image-4.png" width="700"/>
+</p>
 
 ✅ Insight:
 Tourism data revealed that historical attractions, beaches, and urban activities are the most common motivations for visitors to the U.S. — reinforcing the strategy to invest in Virginia Beach, which combines all three attractions.
