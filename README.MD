@@ -25,7 +25,7 @@ Why travelers visit certain destinations and what type of tourism categories att
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
 <p align="center">
-  <img src="images/image.png" width="700"/>
+  <img src="readme-images/image.png" width="700"/>
 </p>
 
 (ETL pipeline showing Airdna API, Python ETL scripts, Airflow orchestration, and Azure SQL Database)
@@ -95,7 +95,7 @@ INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
 WHERE State_Rank = 1;
 
 <p align="center">
-  <img src="images/image-1.png" width="700"/>
+  <img src="readme-images/image-1.png" width="700"/>
 </p>
 
 ✅ Result:
@@ -112,7 +112,7 @@ WHERE City = 'Virginia Beach'
   AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
 
 <p align="center">
-  <img src="images/image-2.png" width="700"/>
+  <img src="readme-images/image-2.png" width="700"/>
 </p>
 
 ✅ Insight:
@@ -133,7 +133,7 @@ GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
 <p align="center">
-  <img src="images/image-3.png" width="700"/>
+  <img src="readme-images/image-3.png" width="700"/>
 </p>
 
 ✅ Recommendation:
@@ -160,7 +160,7 @@ PIVOT
 ) AS PivotTable;
 
 <p align="center">
-  <img src="images/image-4.png" width="700"/>
+  <img src="readme-images/image-4.png" width="700"/>
 </p>
 
 ✅ Insight:
