@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: usaairbnbdataengineeringproject-postgres-1
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  airflow-webserver:
+    image: airflow-etl:latest
+    container_name: usaairbnbdataengineeringproject-airflow-webserver-1
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__WEBSERVER__SECRET_KEY=supersecretkey
+    ports:
+      - "8080:8080"
+    command: webserver
+    restart: always
+    volumes:
+      - ./1. dags:/opt/airflow/dags
+      - ./2. scripts:/opt/airflow/scripts
+      - ./3. data:/opt/airflow/data
+      - ./4. logs:/opt/airflow/logs
+      - ./5. plugins:/opt/airflow/plugins
+
+
+
+
+  airflow-scheduler:
+    image: airflow-etl:latest
+    container_name: usaairbnbdataengineeringproject-airflow-scheduler-1
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    command: scheduler
+    restart: always
+    volumes:
+      - ./1. dags:/opt/airflow/dags
+      - ./2. scripts:/opt/airflow/scripts
+      - ./3. data:/opt/airflow/data
+      - ./4. logs:/opt/airflow/logs
+      - ./5. plugins:/opt/airflow/plugins
+
+
+  airflow-init:
+    image: airflow-etl:latest
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    entrypoint: ["airflow", "db", "init"]
+
+volumes:
+  postgres_data:

@@ -1,0 +1,81 @@
+-- 1. The investor wants to know first what state on average is bringing in the most revenue, the investor is keen on getting maximum revenue
+-- Then from that state, list the top citY with the highest revenue
+--After retrieving this data, recommend what state and city to focus on for investing.
+
+-- Get every state and the average revenue by firsting creating a CTE
+WITH avg_rev AS(
+SELECT State,avg(Revenue) AS AVG_Annual_Revenue, DENSE_RANK() OVER( order by avg(revenue) DESC) State_Rank
+FROM [dbo].[Airbnb_Listings]
+group by State
+)
+-- Retrieve just the # 1 city with the highest average revenue
+SELECT DISTINCT  a.State,city,  concat('$',FORMAT(AVG_Annual_Revenue, 'N')) AS 'Average Revenue' 
+FROM avg_rev a INNER JOIN [dbo].[Airbnb_Listings] l
+ON a.State = l.State
+WHERE State_Rank = 1
+
+--2. After determining Virgina Beach is the city that has returned the highest amount of revenue on average annually,
+--lets now determine what is the average occupancy rate, rating, average daily rate, and days available.
+--the beach is obviously the main attraction so lets filter the posting to just beach and water attractions
+
+--Retrieve the average occupancy rate, rating, daily rate, and days available for Virgina Beach
+SELECT avg(CAST([Occupancy_Rate] AS smallint)) 'Average Occupancy Rate',avg(CAST(Rating AS smallint)) 'Average Rating', 
+concat('$',avg(CAST(Average_Daily_Rate AS smallint))) 'Average Daily Rate',  avg(CAST(Days_Available AS smallint)) 'Average Days Available'
+from [dbo].[Airbnb_Listings]
+where City = 'Virgina Beach' and (Title LIKE '%beach%' or Title LIKE '%water%' or Title LIKE '%ocean%')
+
+
+--3. We have now narrowed down to Virgina Beach being the city we want to focus on
+--The next step is to understand what listing type, # of bedrooms and bathrooms is currently bringing in the most revenue
+
+--find the projected revenue for each listing type, # of bedrooms and bathrooms by substracting days available from 365 days(a year) and multiply by AVD
+select TOP 5 Listing_Type,Bedrooms,Bathrooms, CONCAT('$',avg((365-Days_Available)*CAST(Average_Daily_Rate AS smallint))) 'Projected Revenue'
+from [dbo].[Airbnb_Listings]
+WHERE Bedrooms <> 0 AND City = 'Virgina Beach'
+GROUP BY Listing_Type,Bedrooms,Bathrooms
+order by avg((365-Days_Available)*Average_Daily_Rate) DESC
+
+--4. It is important to know why most people travel in the U.S.
+-- find the total number of visitors for each category for tourism
+
+-- create a pivot table that show each category and the total amount of Visitors in the U.S
+SELECT Country, Historical, Urban, Adventure, Nature, Cultural,Beach
+FROM
+(
+SELECT Country, Category, Visitors
+FROM [dbo].[Tourism_by_Category]
+WHERE Country = 'USA'
+) SourceTable
+
+PIVOT
+(
+SUM(Visitors)
+FOR Category IN(Historical, Urban, Adventure, Nature, Cultural,Beach)
+) as PivotTable;
+
+
+--5. It is important to know market trends in the real estate market to understand when to invest or purchase a property for short term rentals
+--Get the year over year percentage change of the average listing price in the U.S from 2005 to 2025.
+
+WITH CTE AS
+(
+    SELECT 
+        YEAR(List_date) AS [List Date Year],
+        LAG(AVG(List_Price)) OVER (ORDER BY YEAR(List_date)) AS [Last Year Average Listing Price],
+        AVG(List_Price) AS [Average List Price]
+    FROM [dbo].[Airbnb_ForSale_Properties]
+    WHERE List_date IS NOT NULL
+    GROUP BY YEAR(List_date)
+)
+SELECT 
+    [List Date Year],
+    CAST([Last Year Average Listing Price] AS MONEY) AS [Last Year Average Listing Price],
+    CAST([Average List Price] AS MONEY) AS [Average List Price],
+    CASE 
+        WHEN [Last Year Average Listing Price] IS NULL 
+             OR [Last Year Average Listing Price] = 0 THEN NULL
+        ELSE 
+            CAST(CAST(ROUND((([Average List Price] - [Last Year Average Listing Price]) 
+                            / [Last Year Average Listing Price]) * 100, 0) AS INT) AS VARCHAR(10)) + '%'
+    END AS [YoY % Change]
+FROM CTE;

@@ -1,0 +1,16 @@
+-- 2️⃣ Create a user (login role) for Airflow
+--CREATE USER airflow_user WITH PASSWORD 'airflow_pass';
+
+-- 3️⃣ Give that user ownership or privileges over the Airflow DB
+--GRANT ALL PRIVILEGES ON DATABASE airflow TO airflow_user;
+
+
+
+-- Grant ALL privileges on the database to the user
+GRANT ALL PRIVILEGES ON DATABASE airflow TO airflow_user;
+
+-- Grant privileges on the public schema
+GRANT ALL ON SCHEMA public TO airflow_user;
+
+-- Optional: allow creating objects in the schema
+ALTER SCHEMA public OWNER TO airflow_user;

@@ -1,0 +1,106 @@
+[2025-10-23T00:14:31.151+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-10-23T00:14:31.211+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: airdna_etl_dag.load manual__2025-10-22T22:54:36.293991+00:00 [queued]>
+[2025-10-23T00:14:31.220+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: airdna_etl_dag.load manual__2025-10-22T22:54:36.293991+00:00 [queued]>
+[2025-10-23T00:14:31.221+0000] {taskinstance.py:2306} INFO - Starting attempt 11 of 11
+[2025-10-23T00:14:31.237+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): load> on 2025-10-22 22:54:36.293991+00:00
+[2025-10-23T00:14:31.247+0000] {standard_task_runner.py:63} INFO - Started process 245 to run task
+[2025-10-23T00:14:31.250+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'airdna_etl_dag', 'load', 'manual__2025-10-22T22:54:36.293991+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/airbnb_etl_dag.py', '--cfg-path', '/tmp/tmpz3tph9yo']
+[2025-10-23T00:14:31.253+0000] {standard_task_runner.py:91} INFO - Job 84: Subtask load
+[2025-10-23T00:14:31.331+0000] {task_command.py:426} INFO - Running <TaskInstance: airdna_etl_dag.load manual__2025-10-22T22:54:36.293991+00:00 [running]> on host 9deb204d554e
+[2025-10-23T00:14:31.464+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='airdna_etl_dag' AIRFLOW_CTX_TASK_ID='load' AIRFLOW_CTX_EXECUTION_DATE='2025-10-22T22:54:36.293991+00:00' AIRFLOW_CTX_TRY_NUMBER='11' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-10-22T22:54:36.293991+00:00'
+[2025-10-23T00:14:31.466+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-10-23T00:14:31.469+0000] {logging_mixin.py:188} WARNING - /opt/***/dags/airbnb_etl_dag.py:184 FutureWarning: Passing literal json to 'read_json' is deprecated and will be removed in a future version. To read from a literal string, wrap it in a 'StringIO' object.
+[2025-10-23T00:14:31.508+0000] {logging_mixin.py:188} WARNING - /opt/***/dags/airbnb_etl_dag.py:185 FutureWarning: Passing literal json to 'read_json' is deprecated and will be removed in a future version. To read from a literal string, wrap it in a 'StringIO' object.
+[2025-10-23T00:14:33.769+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-10-23T00:14:33.771+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/dialects/mssql/pyodbc.py", line 649, in do_executemany
+    super(MSDialect_pyodbc, self).do_executemany(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 733, in do_executemany
+    cursor.executemany(statement, parameters)
+pyodbc.ProgrammingError: ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'days_available_ltm'. (207) (SQLExecDirectW)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/airbnb_etl_dag.py", line 201, in load
+    airdna_data.to_sql(
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 1958, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 1507, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 1498, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 1059, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/pandas/io/sql.py", line 951, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/dialects/mssql/pyodbc.py", line 649, in do_executemany
+    super(MSDialect_pyodbc, self).do_executemany(
+  File "/home/airflow/.local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 733, in do_executemany
+    cursor.executemany(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (pyodbc.ProgrammingError) ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'days_available_ltm'. (207) (SQLExecDirectW)")
+[SQL: INSERT INTO [Airbnb_Listings] (accommodates, airbnb_property_id, bathrooms, bedrooms, currency, days_available_ltm, listing_type, market_name, occupancy_rate_ltm, property_id, rating, revenue_ltm, revenue_potential_ltm, reviews, title, average_daily_rate, [City], [State]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ((2, 1462311, 1, 1, 'usd', 240, 'entire_place', 'Austin', 68.33, 'abnb_1462311', 5.0, 28700, 42833.41, 1309, 'The Austin Texas House South Congress Stay and Enjoy', 175.0, 'Austin', ' Texas'), (4, 44334720, 1, 1, 'usd', 360, 'entire_place', 'Austin', 26.11, 'abnb_44334720', 4.6, 26599, 27007.63, 1278, 'Kasa | 1BD, Walk to South Congress Bridge | Austin', 282.97, 'Austin', ' Texas'), (2, 949922, 1, 1, 'usd', 348, 'entire_place', 'Austin', 70.4, 'abnb_949922', 4.9, 19890, 20919.91, 1275, 'Vintage Airstream in East Austin, Texas', 81.18, 'Austin', ' Texas'), (2, 2528473, 1, 1, 'usd', 348, 'entire_place', 'Austin', 88.79, 'abnb_2528473', 4.9, 26042, 27286.6, 1181, 'Garden Cottage in East Austin', 84.28, 'Austin', ' Texas'), (2, 202187, 1, 1, 'usd', 316, 'entire_place', 'Austin', 91.46, 'abnb_202187', 4.9, 25924, 30141.15, 1140, 'South Congress Apartment', 89.7, 'Austin', ' Texas'), (6, 57187, 1, 1, 'usd', 349, 'entire_place', 'Austin', 47.56, 'abnb_57187', 4.9, 22828, 23920.51, 1113, 'An Austin "Weird" Home in Peaceful Zilker Park', 137.52, 'Austin', ' Texas'), (2, 4974255, 1, 1, 'usd', 195, 'entire_place', 'Austin', 69.23, 'abnb_4974255', 5.0, 15885, 23898.14, 1111, 'Tiny House in the Heart of the East Side', 117.67, 'Austin', ' Texas'), (6, 7859914, 1, 2, 'usd', 363, 'entire_place', 'Austin', 78.24, 'abnb_7859914', 4.9, 22040, 22171.16, 1107, 'Private Garage Apartment! Near Airport & Downtown!', 77.61, 'Austin', ' Texas'), (2, 12308357, 1, 1, 'usd', 365, 'entire_place', 'Austin', 70.41, 'abnb_12308357', 5.0, 46894, 46894.0, 1091, 'Enjoy Heated Waterfall Pool at Lux SOCO Getaway', 182.47, 'Austin', ' Texas'), (2, 705858, 1, 1, 'usd', 365, 'entire_place', 'Austin', 77.53, 'abnb_705858', 5.0, 54590, 54590.0, 1070, 'Walk to SOCO from Your Retreat with Heated Pool', 192.9, 'Austin', ' Texas'))]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-10-23T00:14:33.855+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=airdna_etl_dag, task_id=load, run_id=manual__2025-10-22T22:54:36.293991+00:00, execution_date=20251022T225436, start_date=20251023T001431, end_date=20251023T001433
+[2025-10-23T00:14:33.889+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 84 for task load ((pyodbc.ProgrammingError) ('42S22', "[42S22] [Microsoft][ODBC Driver 17 for SQL Server][SQL Server]Invalid column name 'days_available_ltm'. (207) (SQLExecDirectW)")
+[SQL: INSERT INTO [Airbnb_Listings] (accommodates, airbnb_property_id, bathrooms, bedrooms, currency, days_available_ltm, listing_type, market_name, occupancy_rate_ltm, property_id, rating, revenue_ltm, revenue_potential_ltm, reviews, title, average_daily_rate, [City], [State]) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ((2, 1462311, 1, 1, 'usd', 240, 'entire_place', 'Austin', 68.33, 'abnb_1462311', 5.0, 28700, 42833.41, 1309, 'The Austin Texas House South Congress Stay and Enjoy', 175.0, 'Austin', ' Texas'), (4, 44334720, 1, 1, 'usd', 360, 'entire_place', 'Austin', 26.11, 'abnb_44334720', 4.6, 26599, 27007.63, 1278, 'Kasa | 1BD, Walk to South Congress Bridge | Austin', 282.97, 'Austin', ' Texas'), (2, 949922, 1, 1, 'usd', 348, 'entire_place', 'Austin', 70.4, 'abnb_949922', 4.9, 19890, 20919.91, 1275, 'Vintage Airstream in East Austin, Texas', 81.18, 'Austin', ' Texas'), (2, 2528473, 1, 1, 'usd', 348, 'entire_place', 'Austin', 88.79, 'abnb_2528473', 4.9, 26042, 27286.6, 1181, 'Garden Cottage in East Austin', 84.28, 'Austin', ' Texas'), (2, 202187, 1, 1, 'usd', 316, 'entire_place', 'Austin', 91.46, 'abnb_202187', 4.9, 25924, 30141.15, 1140, 'South Congress Apartment', 89.7, 'Austin', ' Texas'), (6, 57187, 1, 1, 'usd', 349, 'entire_place', 'Austin', 47.56, 'abnb_57187', 4.9, 22828, 23920.51, 1113, 'An Austin "Weird" Home in Peaceful Zilker Park', 137.52, 'Austin', ' Texas'), (2, 4974255, 1, 1, 'usd', 195, 'entire_place', 'Austin', 69.23, 'abnb_4974255', 5.0, 15885, 23898.14, 1111, 'Tiny House in the Heart of the East Side', 117.67, 'Austin', ' Texas'), (6, 7859914, 1, 2, 'usd', 363, 'entire_place', 'Austin', 78.24, 'abnb_7859914', 4.9, 22040, 22171.16, 1107, 'Private Garage Apartment! Near Airport & Downtown!', 77.61, 'Austin', ' Texas'), (2, 12308357, 1, 1, 'usd', 365, 'entire_place', 'Austin', 70.41, 'abnb_12308357', 5.0, 46894, 46894.0, 1091, 'Enjoy Heated Waterfall Pool at Lux SOCO Getaway', 182.47, 'Austin', ' Texas'), (2, 705858, 1, 1, 'usd', 365, 'entire_place', 'Austin', 77.53, 'abnb_705858', 5.0, 54590, 54590.0, 1070, 'Walk to SOCO from Your Retreat with Heated Pool', 192.9, 'Austin', ' Texas'))]
+(Background on this error at: https://sqlalche.me/e/14/f405); 245)
+[2025-10-23T00:14:33.930+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-10-23T00:14:33.968+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-10-23T00:14:33.974+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

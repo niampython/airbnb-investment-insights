@@ -1,0 +1,51 @@
+CREATE TABLE Airbnb_Listings
+
+(
+    Accommodates           FLOAT          NULL,
+    Airbnb_Property_Id     BIGINT         NULL,
+    Bathrooms              FLOAT          NULL,
+    Bedrooms               FLOAT          NULL,
+    Currency               NVARCHAR(10)   NULL,
+    Days_Available         INT            NULL,
+    Listing_Type           NVARCHAR(50)   NULL,
+    Market_Name            NVARCHAR(100)  NULL,
+    Occupancy_Rate         DECIMAL(5,2)   NULL,
+    Property_Id            NVARCHAR(50)   NULL,
+    Rating                 FLOAT          NULL,
+    Revenue                DECIMAL(12,2)  NULL,
+    Revenue_Potential      DECIMAL(12,2)  NULL,
+    Reviews                INT            NULL,
+    Title                  NVARCHAR(255)  NULL,
+    Average_Daily_Rate     DECIMAL(10,2)  NULL,
+    City                   NVARCHAR(100)  NULL,
+    State                  NVARCHAR(100)  NULL
+);
+
+
+CREATE TABLE Airbnb_ForSale_Properties
+(
+    Estimated_AverageDailyRate    DECIMAL(10,2)    NULL,
+    Estimated_Yield				  DECIMAL(5,2)     NULL,
+    Estimated_Occupancy           DECIMAL(5,2)     NULL,
+    Estimated_Revenue             DECIMAL(14,2)    NULL,
+    Estimated_TotalComparables    INT              NULL,
+    Property_Address			  NVARCHAR(255)    NULL,
+    Num_of_Bathrooms              FLOAT            NULL,
+    Num_of_Bedrooms               INT              NULL,
+    Property_id                   NVARCHAR(100)    NULL,
+    List_Price                    DECIMAL(18,2)    NULL,
+    List_Date                     NVARCHAR(50)     NULL,
+    City                          NVARCHAR(100)    NULL,
+    Property_SQFT                 INT              NULL
+);
+
+CREATE TABLE Tourism_by_Category
+(
+    [Country]                   NVARCHAR(100)    NULL,
+    [Category]                  NVARCHAR(100)    NULL,
+    [Visitors]                  INT              NULL,
+    [Rating]                    FLOAT            NULL,
+    [Revenue]                   DECIMAL(14,2)    NULL,
+    [Accommodation_Available]   BIT              NULL
+);
+
