@@ -160,7 +160,7 @@ PIVOT
 ) AS PivotTable;
 
 <p align="center">
-  <img src="readme-images/image-4.png" width="600"/>
+  <img src="readme-images/image-4.png" width="700"/>
 </p>
 
 ✅ Insight:
