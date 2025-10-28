@@ -138,7 +138,7 @@ ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
 ✅ Recommendation:
 
-2–3 bedroom entire homes/apartments perform best.
+5–7 bedroom/bathrooms entire homes/apartments perform best.
 
 Properties near the beach or urban attractions have the highest ROI.
 
