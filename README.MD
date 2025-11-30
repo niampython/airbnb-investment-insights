@@ -7,7 +7,7 @@ The investor’s goal was to determine which U.S. city generates the highest Air
 
 This project combines data engineering, Azure cloud infrastructure, data orchestration, and data analytics to generate actionable investment insights.
 
-# **🧩 Business Problem**
+## **🧩 Business Problem**
 
 The investor wanted to know:
 
@@ -19,52 +19,52 @@ What combination of property features (bedrooms, bathrooms, listing types) yield
 
 Why travelers visit certain destinations and what type of tourism categories attract the most visitors.
 
-**☁️ Architecture Overview – 🔹 Data Flow**
+## **☁️ Architecture Overview – 🔹 Data Flow**
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
 (ETL pipeline showing Airdna API, Python ETL scripts, Airflow orchestration, and Azure SQL Database)
 
-Data Flow Summary:
+**Data Flow Summary:**
 
-Airdna API (Airbnb source data) — Extracted via Python
+**Airdna API (Airbnb source data) —** Extracted via Python
 
-On-Prem SQL Server (Tourism Data) — Migrated to Azure SQL using Azure Data Migration Service
+**On-Prem SQL Server (Tourism Data) —** Migrated to Azure SQL using Azure Data Migration Service
 
-Azure SQL Database — Central data warehouse for Airbnb and tourism data
+**Azure SQL Database —** Central data warehouse for Airbnb and tourism data
 
-Apache Airflow (via Docker) — Monthly ETL scheduling and monitoring
+**Apache Airflow (via Docker) —** Monthly ETL scheduling and monitoring
 
-**SQL Analysis (SSMS) — Insights and recommendations for the investor**
+**SQL Analysis (SSMS) —** Insights and recommendations for the investor
 
-⚙️ ETL Process
-1️⃣ Extraction
+## **⚙️ ETL Process**
+**1️⃣ Extraction**
 
-Source: Airdna API (Airbnb property and listing data)
+**Source:** Airdna API (Airbnb property and listing data)
 
-Tool: Python (requests, json)
+**Tool:** Python (requests, json)
 
-Process: Fetches JSON data for Airbnb listings across U.S. cities
+**Process:** Fetches JSON data for Airbnb listings across U.S. cities
 
-2️⃣ Transformation
+**2️⃣ Transformation**
 
-Tool: Python
+**Tool:** Python
 
-Process: Cleans data, maps schema, and validates metrics (revenue, occupancy rate, etc.)
+**Process:** Cleans data, maps schema, and validates metrics (revenue, occupancy rate, etc.)
 
-3️⃣ Load
+**3️⃣ Load**
 
-Destination: Azure SQL Database
+**Destination:** Azure SQL Database
 
-Tool: pyodbc via Python
+**Tool:** pyodbc via Python
 
-Schedule: Monthly using Airflow DAGs
+**Schedule:** Monthly using Airflow DAGs
 
-🔁 Cloud Migration (On-Prem → Azure SQL)
+## **🔁 Cloud Migration (On-Prem → Azure SQL)**
 
 Historical tourism trend data stored in an on-prem SQL Server was migrated to Azure SQL Database using Azure Data Migration Service.
 
-Benefits:
+**Benefits:**
 
 Built-in High Availability and Disaster Recovery
 
@@ -72,11 +72,11 @@ Reduced Infrastructure and Maintenance Costs
 
 Centralized data for scalable analytics
 
-🧠 Data Analysis (SQL Insights)
+## **🧠 Data Analysis (SQL Insights)**
 
 Once data was loaded into Azure SQL Database, several ad-hoc SQL queries were run to generate insights for the investor.
 
-1️⃣ Identify Top State and City by Average Revenue
+**1️⃣ Identify Top State and City by Average Revenue**
 WITH avg_rev AS(
     SELECT State,
            avg(Revenue) AS AVG_Annual_Revenue,
@@ -92,9 +92,9 @@ INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
 WHERE State_Rank = 1;
 
 
-✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.
+**✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.**
 
-2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability
+## **2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability**
 SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
        AVG(CAST(Rating AS SMALLINT)) AS 'Average Rating',
        CONCAT('$', AVG(CAST(Average_Daily_Rate AS SMALLINT))) AS 'Average Daily Rate',
@@ -104,15 +104,15 @@ WHERE City = 'Virginia Beach'
   AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
 
 
-✅ Insight:
+**✅ Insight:**
 
-Average Occupancy Rate: ~60%
+Average Occupancy Rate: **~60%**
 
-Average Daily Rate: ~$470
+Average Daily Rate: **~$470**
 
 Beachfront and waterfront listings outperform others.
 
-3️⃣ Determine Property Types with the Highest Projected Revenue
+## **3️⃣ Determine Property Types with the Highest Projected Revenue**
 SELECT TOP 5 Listing_Type,
        Bedrooms,
        Bathrooms,
@@ -124,13 +124,13 @@ GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
 
-✅ Recommendation:
+**✅ Recommendation:**
 
-5–7 bedroom entire homes / apartments perform best
+**5–7 bedroom** entire homes / apartments perform best
 
-Properties near beach or urban attractions have the highest ROI
+Properties near **beach** or **urban attractions** have the highest ROI
 
-4️⃣ Understand Tourism Trends in the U.S.
+## **4️⃣ Understand Tourism Trends in the U.S.**
 SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach
 FROM (
    SELECT Country, Category, Visitors
@@ -144,28 +144,30 @@ PIVOT
 ) AS PivotTable;
 
 
-✅ Insight:
+**✅ Insight:**
 Historical attractions, beaches, and urban activities are the top motivators for visitors to the U.S.
-👉 Reinforces the investment case for Virginia Beach.
+👉 Reinforces the investment case for **Virginia Beach**.
 
-💡 Recommendations to the Investor
-Recommendation	Description
+## **💡 Recommendations to the Investor**
+**Recommendation	Description
 Target Market	Virginia Beach, VA
 Property Focus	Entire home/apartment with 5–7 bedrooms, 5–7 bathrooms
 Attraction Focus	Near beach, historical, and urban areas
 Expected Metrics	~60% occupancy rate, ~$470 daily rate
-Tourism Insight	Beach & Urban attractions drive most U.S. travel
-📊 Screenshots
-🧱 Data Pipeline Architecture
+Tourism Insight	Beach & Urban attractions drive most U.S. travel**
+
+## **📊 Screenshots**
+
+##  **🧱 Data Pipeline Architecture**
 
 (image placeholder)
 
-🧮 SQL Analysis in SSMS
+## **🧮 SQL Analysis in SSMS**
 
 (image placeholder)
 
-🧰 Technologies Used
-Category	Tools / Services
+## **🧰 Technologies Used**
+**Category	Tools / Services
 Cloud	Azure SQL Database, Azure Data Migration Service
 Orchestration	Apache Airflow (via Docker)
 Programming	Python
@@ -173,7 +175,7 @@ Querying	T-SQL
 Database	SQL Server
 Visualization	SSMS, Draw.io
 Version Control	GitHub
-🗓️ Scheduling & Monitoring
+## **🗓️ Scheduling & Monitoring**
 
 Airflow schedules monthly ETL pipelines
 
@@ -181,7 +183,7 @@ Dockerized Airflow includes webserver + scheduler
 
 Real-time monitoring via Airflow UI
 
-📈 Results
+## **📈 Results**
 
 Automated Airbnb data ingestion and cloud migration pipeline
 
