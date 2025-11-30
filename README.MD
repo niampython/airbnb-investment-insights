@@ -117,6 +117,7 @@ Average Daily Rate: **~$470**
 Beachfront and waterfront listings outperform others.
 
 ### **3️⃣ Determine Property Types with the Highest Projected Revenue**
+```sql
 SELECT TOP 5 Listing_Type,
        Bedrooms,
        Bathrooms,
@@ -126,7 +127,7 @@ WHERE Bedrooms <> 0
   AND City = 'Virginia Beach'
 GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
-
+```
 
 **✅ Recommendation:**
 
@@ -135,6 +136,7 @@ ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 Properties near **beach** or **urban attractions** have the highest ROI
 
 ### **4️⃣ Understand Tourism Trends in the U.S.**
+```sql
 SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach
 FROM (
    SELECT Country, Category, Visitors
@@ -146,7 +148,7 @@ PIVOT
     SUM(Visitors)
     FOR Category IN (Historical, Urban, Adventure, Nature, Cultural, Beach)
 ) AS PivotTable;
-
+```
 
 **✅ Insight:**
 Historical attractions, beaches, and urban activities are the top motivators for visitors to the U.S.
