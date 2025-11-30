@@ -98,6 +98,7 @@ WHERE State_Rank = 1;
 **✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.**
 
 ### **2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability**
+```sql
 SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
        AVG(CAST(Rating AS SMALLINT)) AS 'Average Rating',
        CONCAT('$', AVG(CAST(Average_Daily_Rate AS SMALLINT))) AS 'Average Daily Rate',
@@ -105,7 +106,7 @@ SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy
 FROM [dbo].[Airbnb_Listings]
 WHERE City = 'Virginia Beach'
   AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
-
+```
 
 **✅ Insight:**
 
