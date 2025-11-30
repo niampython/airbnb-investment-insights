@@ -1,5 +1,5 @@
-**🏠 Airbnb Investment Insights Data Engineering Project**
-**📘 Project Overview**
+# **🏠 Airbnb Investment Insights Data Engineering Project**
+## **📘 Project Overview**
 
 As a Data Engineer and Analyst, I built an end-to-end data pipeline to help a real estate investor make informed short-term rental investment decisions using Airbnb (Airdna) data.
 
