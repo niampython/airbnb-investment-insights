@@ -175,7 +175,7 @@ Querying	T-SQL
 Database	SQL Server
 Visualization	SSMS, Draw.io
 Version Control	GitHub
-## **🗓️ Scheduling & Monitoring**
+### **🗓️ Scheduling & Monitoring**
 
 Airflow schedules monthly ETL pipelines
 
@@ -183,7 +183,7 @@ Dockerized Airflow includes webserver + scheduler
 
 Real-time monitoring via Airflow UI
 
-## **📈 Results**
+### **📈 Results**
 
 Automated Airbnb data ingestion and cloud migration pipeline
 
