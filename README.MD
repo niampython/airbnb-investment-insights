@@ -78,6 +78,8 @@ Centralized data for scalable analytics
 Once data was loaded into Azure SQL Database, several ad-hoc SQL queries were run to generate insights for the investor.
 
 ### **1️⃣ Identify Top State and City by Average Revenue**
+
+```sql
 WITH avg_rev AS(
     SELECT State,
            avg(Revenue) AS AVG_Annual_Revenue,
@@ -91,7 +93,7 @@ SELECT DISTINCT a.State,
 FROM avg_rev a
 INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
 WHERE State_Rank = 1;
-
+```
 
 **✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.**
 
