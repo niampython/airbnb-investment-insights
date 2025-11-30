@@ -19,7 +19,8 @@ What combination of property features (bedrooms, bathrooms, listing types) yield
 
 Why travelers visit certain destinations and what type of tourism categories attract the most visitors.
 
-## **☁️ Architecture Overview – 🔹 Data Flow**
+## **☁️ Architecture Overview** 
+### **🔹 Data Flow**
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
@@ -38,7 +39,7 @@ The following diagram shows how data flows through the system — from source to
 **SQL Analysis (SSMS) —** Insights and recommendations for the investor
 
 ## **⚙️ ETL Process**
-**1️⃣ Extraction**
+### **1️⃣ Extraction**
 
 **Source:** Airdna API (Airbnb property and listing data)
 
@@ -46,13 +47,13 @@ The following diagram shows how data flows through the system — from source to
 
 **Process:** Fetches JSON data for Airbnb listings across U.S. cities
 
-**2️⃣ Transformation**
+### **2️⃣ Transformation**
 
 **Tool:** Python
 
 **Process:** Cleans data, maps schema, and validates metrics (revenue, occupancy rate, etc.)
 
-**3️⃣ Load**
+### **3️⃣ Load**
 
 **Destination:** Azure SQL Database
 
@@ -76,7 +77,7 @@ Centralized data for scalable analytics
 
 Once data was loaded into Azure SQL Database, several ad-hoc SQL queries were run to generate insights for the investor.
 
-**1️⃣ Identify Top State and City by Average Revenue**
+### **1️⃣ Identify Top State and City by Average Revenue**
 WITH avg_rev AS(
     SELECT State,
            avg(Revenue) AS AVG_Annual_Revenue,
@@ -94,7 +95,7 @@ WHERE State_Rank = 1;
 
 **✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.**
 
-## **2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability**
+### **2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability**
 SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
        AVG(CAST(Rating AS SMALLINT)) AS 'Average Rating',
        CONCAT('$', AVG(CAST(Average_Daily_Rate AS SMALLINT))) AS 'Average Daily Rate',
@@ -112,7 +113,7 @@ Average Daily Rate: **~$470**
 
 Beachfront and waterfront listings outperform others.
 
-## **3️⃣ Determine Property Types with the Highest Projected Revenue**
+### **3️⃣ Determine Property Types with the Highest Projected Revenue**
 SELECT TOP 5 Listing_Type,
        Bedrooms,
        Bathrooms,
@@ -130,7 +131,7 @@ ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
 Properties near **beach** or **urban attractions** have the highest ROI
 
-## **4️⃣ Understand Tourism Trends in the U.S.**
+### **4️⃣ Understand Tourism Trends in the U.S.**
 SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach
 FROM (
    SELECT Country, Category, Visitors
@@ -148,7 +149,7 @@ PIVOT
 Historical attractions, beaches, and urban activities are the top motivators for visitors to the U.S.
 👉 Reinforces the investment case for **Virginia Beach**.
 
-## **💡 Recommendations to the Investor**
+### **💡 Recommendations to the Investor**
 **Recommendation	Description
 Target Market	Virginia Beach, VA
 Property Focus	Entire home/apartment with 5–7 bedrooms, 5–7 bathrooms
@@ -156,17 +157,17 @@ Attraction Focus	Near beach, historical, and urban areas
 Expected Metrics	~60% occupancy rate, ~$470 daily rate
 Tourism Insight	Beach & Urban attractions drive most U.S. travel**
 
-## **📊 Screenshots**
+### **📊 Screenshots**
 
-##  **🧱 Data Pipeline Architecture**
-
-(image placeholder)
-
-## **🧮 SQL Analysis in SSMS**
+###  **🧱 Data Pipeline Architecture**
 
 (image placeholder)
 
-## **🧰 Technologies Used**
+### **🧮 SQL Analysis in SSMS**
+
+(image placeholder)
+
+### **🧰 Technologies Used**
 **Category	Tools / Services
 Cloud	Azure SQL Database, Azure Data Migration Service
 Orchestration	Apache Airflow (via Docker)
