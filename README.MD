@@ -1,5 +1,5 @@
-🏠 Airbnb Investment Insights Data Engineering Project
-📘 Project Overview
+**🏠 Airbnb Investment Insights Data Engineering Project**
+**📘 Project Overview**
 
 As a Data Engineer and Analyst, I built an end-to-end data pipeline to help a real estate investor make informed short-term rental investment decisions using Airbnb (Airdna) data.
 
@@ -7,7 +7,7 @@ The investor’s goal was to determine which U.S. city generates the highest Air
 
 This project combines data engineering, Azure cloud infrastructure, data orchestration, and data analytics to generate actionable investment insights.
 
-🧩 Business Problem
+**🧩 Business Problem**
 
 The investor wanted to know:
 
@@ -19,7 +19,7 @@ What combination of property features (bedrooms, bathrooms, listing types) yield
 
 Why travelers visit certain destinations and what type of tourism categories attract the most visitors.
 
-☁️ Architecture Overview – 🔹 Data Flow
+**☁️ Architecture Overview – 🔹 Data Flow**
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
@@ -35,7 +35,7 @@ Azure SQL Database — Central data warehouse for Airbnb and tourism data
 
 Apache Airflow (via Docker) — Monthly ETL scheduling and monitoring
 
-SQL Analysis (SSMS) — Insights and recommendations for the investor
+**SQL Analysis (SSMS) — Insights and recommendations for the investor**
 
 ⚙️ ETL Process
 1️⃣ Extraction
