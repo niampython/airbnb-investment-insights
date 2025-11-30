@@ -7,7 +7,7 @@ The investor’s goal was to determine which U.S. city generates the highest Air
 
 This project combines data engineering, Azure cloud infrastructure, data orchestration, and data analytics to generate actionable investment insights.
 
-**🧩 Business Problem**
+# **🧩 Business Problem**
 
 The investor wanted to know:
 
