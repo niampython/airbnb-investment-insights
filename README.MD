@@ -5,7 +5,7 @@ As a Data Engineer and Analyst, I built an end-to-end data pipeline to help a re
 
 The investor’s goal was to determine which U.S. city generates the highest Airbnb revenue, and what property characteristics (bedrooms, bathrooms, pricing, and location features) maximize returns.
 
-This project combines data engineering, Azure cloud infrastructure,data orchestration, and data analytics to generate actionable investment insights.
+This project combines data engineering, Azure cloud infrastructure, data orchestration, and data analytics to generate actionable investment insights.
 
 🧩 Business Problem
 
@@ -23,10 +23,6 @@ Why travelers visit certain destinations and what type of tourism categories att
 🔹 Data Flow
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
-
-<p align="center">
-  <img src="readme-images/image.png" width="700"/>
-</p>
 
 (ETL pipeline showing Airdna API, Python ETL scripts, Airflow orchestration, and Azure SQL Database)
 
@@ -83,37 +79,37 @@ Once data was loaded into Azure SQL Database, several ad-hoc SQL queries were ru
 
 1️⃣ Identify Top State and City by Average Revenue
 WITH avg_rev AS(
-SELECT State, avg(Revenue) AS AVG_Annual_Revenue, 
-       DENSE_RANK() OVER(ORDER BY avg(Revenue) DESC) AS State_Rank
-FROM [dbo].[Airbnb_Listings]
-GROUP BY State
+    SELECT State, 
+           avg(Revenue) AS AVG_Annual_Revenue,
+           DENSE_RANK() OVER(ORDER BY avg(Revenue) DESC) AS State_Rank
+    FROM [dbo].[Airbnb_Listings]
+    GROUP BY State
 )
-SELECT DISTINCT a.State, city, 
-       CONCAT('$', FORMAT(AVG_Annual_Revenue, 'N')) AS 'Average Revenue'
+
+SELECT DISTINCT 
+    a.State,
+    city,
+    CONCAT('$', FORMAT(AVG_Annual_Revenue, 'N')) AS 'Average Revenue'
 FROM avg_rev a
-INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
+INNER JOIN [dbo].[Airbnb_Listings] l
+    ON a.State = l.State
 WHERE State_Rank = 1;
 
-<p align="center">
-  <img src="readme-images/image-1.png" width="500"/>
-</p>
 
 ✅ Result:
 Virginia → Virginia Beach had the highest average annual Airbnb revenue.
 
 2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability
-SELECT 
-  CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
-  AVG(CAST(Rating AS SMALLINT)) AS 'Average Rating',
-  CONCAT('$', AVG(CAST(Average_Daily_Rate AS SMALLINT))) AS 'Average Daily Rate',
-  AVG(CAST(Days_Available AS SMALLINT)) AS 'Average Days Available'
+SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
+       AVG(CAST(Rating AS SMALLINT)) AS 'Average Rating',
+       CONCAT('$', AVG(CAST(Average_Daily_Rate AS SMALLINT))) AS 'Average Daily Rate',
+       AVG(CAST(Days_Available AS SMALLINT)) AS 'Average Days Available'
 FROM [dbo].[Airbnb_Listings]
-WHERE City = 'Virginia Beach' 
-  AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
+WHERE City = 'Virginia Beach'
+  AND (Title LIKE '%beach%' 
+    OR Title LIKE '%water%' 
+    OR Title LIKE '%ocean%');
 
-<p align="center">
-  <img src="readme-images/image-2.png" width="600"/>
-</p>
 
 ✅ Insight:
 
@@ -125,80 +121,77 @@ Beachfront and waterfront listings outperform others.
 
 3️⃣ Determine Property Types with the Highest Projected Revenue
 SELECT TOP 5 
-  Listing_Type, Bedrooms, Bathrooms,
-  CONCAT('$', AVG((365 - Days_Available) * CAST(Average_Daily_Rate AS SMALLINT))) AS 'Projected Revenue'
+    Listing_Type,
+    Bedrooms,
+    Bathrooms,
+    CONCAT('$', AVG((365 - Days_Available) * CAST(Average_Daily_Rate AS SMALLINT))) AS 'Projected Revenue'
 FROM [dbo].[Airbnb_Listings]
-WHERE Bedrooms <> 0 AND City = 'Virginia Beach'
+WHERE Bedrooms <> 0 
+  AND City = 'Virginia Beach'
 GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
-<p align="center">
-  <img src="readme-images/image-3.png" width="500"/>
-</p>
 
 ✅ Recommendation:
 
-5–7 bedroom/bathrooms entire homes/apartments perform best.
+5–7 bedroom entire homes / apartments perform best.
 
-Properties near the beach or urban attractions have the highest ROI.
+Properties near beach or urban attractions have the highest ROI.
 
 4️⃣ Understand Tourism Trends in the U.S.
-
-This query analyzes tourism categories to determine why people travel across the U.S.
-
-SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach
-FROM
-(
+SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach 
+FROM (
     SELECT Country, Category, Visitors
     FROM [dbo].[Tourism_by_Category]
     WHERE Country = 'USA'
 ) SourceTable
-PIVOT
-(
+PIVOT (
     SUM(Visitors)
     FOR Category IN (Historical, Urban, Adventure, Nature, Cultural, Beach)
 ) AS PivotTable;
 
-<p align="center">
-  <img src="readme-images/image-4.png" width="700"/>
-</p>
 
 ✅ Insight:
-Tourism data revealed that historical attractions, beaches, and urban activities are the most common motivations for visitors to the U.S. — reinforcing the strategy to invest in Virginia Beach, which combines all three attractions.
+Historical attractions, beaches, and urban activities are the top motivators for visitors to the U.S.
+👉 Reinforces the investment case for Virginia Beach.
 
 💡 Recommendations to the Investor
 Recommendation	Description
 Target Market	Virginia Beach, VA
-Property Focus	Entire home/apartment with 5–7 bedrooms, 5-7 bathrooms
+Property Focus	Entire home/apartment with 5–7 bedrooms, 5–7 bathrooms
 Attraction Focus	Near beach, historical, and urban areas
-Expected Metrics	~60% occupancy rate, $470 daily rate, high annual revenue
-Tourism Insight	Beach and Urban attractions drive most U.S. travel
+Expected Metrics	~60% occupancy rate, ~$470 daily rate
+Tourism Insight	Beach & Urban attractions drive most U.S. travel
 📊 Screenshots
 🧱 Data Pipeline Architecture
 
+![airbnb-investment-insights](Docs/architecture_diagram.png)
+
 🧮 SQL Analysis in SSMS
 
+(image placeholder)
+
 🧰 Technologies Used
-Category	Tools/Services
+Category	Tools / Services
 Cloud	Azure SQL Database, Azure Data Migration Service
 Orchestration	Apache Airflow (via Docker)
 Programming	Python
-Querying T-SQL
+Querying	T-SQL
 Database	SQL Server
 Visualization	SSMS, Draw.io
 Version Control	GitHub
 🗓️ Scheduling & Monitoring
 
-Airflow schedules monthly ETL pipelines.
+Airflow schedules monthly ETL pipelines
 
-Dockerized Airflow setup includes both Webserver and Scheduler containers.
+Dockerized Airflow includes webserver + scheduler
 
-Real-time monitoring through Airflow UI.
+Real-time monitoring via Airflow UI
 
 📈 Results
 
-Automated Airbnb data ingestion and cloud migration pipeline.
+Automated Airbnb data ingestion and cloud migration pipeline
 
-Full data integration between Airdna API and Azure SQL Database.
+Full data integration between Airdna API and Azure SQL Database
 
-Actionable, data-driven recommendations for investment strategy.
+Actionable, data-driven recommendations for investment strategy
