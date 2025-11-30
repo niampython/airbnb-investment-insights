@@ -174,13 +174,21 @@ Tourism Insight	Beach & Urban attractions drive most U.S. travel**
 
 ### **🧰 Technologies Used**
 **Category	Tools / Services
+
 Cloud	Azure SQL Database, Azure Data Migration Service
+
 Orchestration	Apache Airflow (via Docker)
+
 Programming	Python
+
 Querying	T-SQL
+
 Database	SQL Server
+
 Visualization	SSMS, Draw.io
+
 Version Control	GitHub
+
 ### **🗓️ Scheduling & Monitoring**
 
 Airflow schedules monthly ETL pipelines
