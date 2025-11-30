@@ -1,7 +1,5 @@
-# 🏠 **Airbnb Investment Insights Data Engineering Project**
-
-## 📘 **Project Overview**
-
+🏠 Airbnb Investment Insights Data Engineering Project
+📘 Project Overview
 
 As a Data Engineer and Analyst, I built an end-to-end data pipeline to help a real estate investor make informed short-term rental investment decisions using Airbnb (Airdna) data.
 
@@ -21,8 +19,7 @@ What combination of property features (bedrooms, bathrooms, listing types) yield
 
 Why travelers visit certain destinations and what type of tourism categories attract the most visitors.
 
-☁️ Architecture Overview
-🔹 Data Flow
+☁️ Architecture Overview – 🔹 Data Flow
 
 The following diagram shows how data flows through the system — from source to cloud to analysis.
 
@@ -30,38 +27,38 @@ The following diagram shows how data flows through the system — from source to
 
 Data Flow Summary:
 
-Airdna API (Airbnb source data) — Extracted via Python.
+Airdna API (Airbnb source data) — Extracted via Python
 
-On-Prem SQL Server (Tourism Data) — Migrated to Azure SQL using Azure Data Migration Service.
+On-Prem SQL Server (Tourism Data) — Migrated to Azure SQL using Azure Data Migration Service
 
-Azure SQL Database — Central data warehouse for Airbnb and tourism data.
+Azure SQL Database — Central data warehouse for Airbnb and tourism data
 
-Apache Airflow (via Docker) — Monthly ETL scheduling and monitoring.
+Apache Airflow (via Docker) — Monthly ETL scheduling and monitoring
 
-SQL Analysis (SSMS) — Insights and recommendations for the investor.
+SQL Analysis (SSMS) — Insights and recommendations for the investor
 
 ⚙️ ETL Process
 1️⃣ Extraction
 
-Source: Airdna API (Airbnb property and Listing data).
+Source: Airdna API (Airbnb property and listing data)
 
-Tool: Python (requests, json).
+Tool: Python (requests, json)
 
-Process: Fetches JSON data for Airbnb listings across U.S. cities.
+Process: Fetches JSON data for Airbnb listings across U.S. cities
 
 2️⃣ Transformation
 
-Tool: Python.
+Tool: Python
 
-Process: Cleans data, maps schema, and validates metrics (revenue, occupancy rate, etc.).
+Process: Cleans data, maps schema, and validates metrics (revenue, occupancy rate, etc.)
 
 3️⃣ Load
 
-Destination: Azure SQL Database.
+Destination: Azure SQL Database
 
-Tool: pyodbc via Python.
+Tool: pyodbc via Python
 
-Schedule: Monthly using Airflow DAGs.
+Schedule: Monthly using Airflow DAGs
 
 🔁 Cloud Migration (On-Prem → Azure SQL)
 
@@ -81,25 +78,21 @@ Once data was loaded into Azure SQL Database, several ad-hoc SQL queries were ru
 
 1️⃣ Identify Top State and City by Average Revenue
 WITH avg_rev AS(
-    SELECT State, 
+    SELECT State,
            avg(Revenue) AS AVG_Annual_Revenue,
            DENSE_RANK() OVER(ORDER BY avg(Revenue) DESC) AS State_Rank
     FROM [dbo].[Airbnb_Listings]
     GROUP BY State
 )
-
-SELECT DISTINCT 
-    a.State,
-    city,
-    CONCAT('$', FORMAT(AVG_Annual_Revenue, 'N')) AS 'Average Revenue'
+SELECT DISTINCT a.State,
+       city,
+       CONCAT('$', FORMAT(AVG_Annual_Revenue, 'N')) AS 'Average Revenue'
 FROM avg_rev a
-INNER JOIN [dbo].[Airbnb_Listings] l
-    ON a.State = l.State
+INNER JOIN [dbo].[Airbnb_Listings] l ON a.State = l.State
 WHERE State_Rank = 1;
 
 
-✅ Result:
-Virginia → Virginia Beach had the highest average annual Airbnb revenue.
+✅ Result: Virginia → Virginia Beach had the highest average annual Airbnb revenue.
 
 2️⃣ Analyze Average Occupancy, Rating, Daily Rate, and Availability
 SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy Rate',
@@ -108,9 +101,7 @@ SELECT CONCAT(AVG(CAST([Occupancy_Rate] AS SMALLINT)),'%') AS 'Average Occupancy
        AVG(CAST(Days_Available AS SMALLINT)) AS 'Average Days Available'
 FROM [dbo].[Airbnb_Listings]
 WHERE City = 'Virginia Beach'
-  AND (Title LIKE '%beach%' 
-    OR Title LIKE '%water%' 
-    OR Title LIKE '%ocean%');
+  AND (Title LIKE '%beach%' OR Title LIKE '%water%' OR Title LIKE '%ocean%');
 
 
 ✅ Insight:
@@ -122,13 +113,12 @@ Average Daily Rate: ~$470
 Beachfront and waterfront listings outperform others.
 
 3️⃣ Determine Property Types with the Highest Projected Revenue
-SELECT TOP 5 
-    Listing_Type,
-    Bedrooms,
-    Bathrooms,
-    CONCAT('$', AVG((365 - Days_Available) * CAST(Average_Daily_Rate AS SMALLINT))) AS 'Projected Revenue'
+SELECT TOP 5 Listing_Type,
+       Bedrooms,
+       Bathrooms,
+       CONCAT('$', AVG((365 - Days_Available) * CAST(Average_Daily_Rate AS SMALLINT))) AS 'Projected Revenue'
 FROM [dbo].[Airbnb_Listings]
-WHERE Bedrooms <> 0 
+WHERE Bedrooms <> 0
   AND City = 'Virginia Beach'
 GROUP BY Listing_Type, Bedrooms, Bathrooms
 ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
@@ -136,18 +126,19 @@ ORDER BY AVG((365 - Days_Available) * Average_Daily_Rate) DESC;
 
 ✅ Recommendation:
 
-5–7 bedroom entire homes / apartments perform best.
+5–7 bedroom entire homes / apartments perform best
 
-Properties near beach or urban attractions have the highest ROI.
+Properties near beach or urban attractions have the highest ROI
 
 4️⃣ Understand Tourism Trends in the U.S.
-SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach 
+SELECT Country, Historical, Urban, Adventure, Nature, Cultural, Beach
 FROM (
-    SELECT Country, Category, Visitors
-    FROM [dbo].[Tourism_by_Category]
-    WHERE Country = 'USA'
+   SELECT Country, Category, Visitors
+   FROM [dbo].[Tourism_by_Category]
+   WHERE Country = 'USA'
 ) SourceTable
-PIVOT (
+PIVOT
+(
     SUM(Visitors)
     FOR Category IN (Historical, Urban, Adventure, Nature, Cultural, Beach)
 ) AS PivotTable;
@@ -167,7 +158,7 @@ Tourism Insight	Beach & Urban attractions drive most U.S. travel
 📊 Screenshots
 🧱 Data Pipeline Architecture
 
-![airbnb-investment-insights](Docs/architecture_diagram.png)
+(image placeholder)
 
 🧮 SQL Analysis in SSMS
 
