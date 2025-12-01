@@ -1,6 +1,6 @@
-This guide provides a detailed walkthrough of creating and running a data migration from an on-premises SQL Server database to an Azure SQL Database using Azure Database Migration Service (DMS).
+***This guide provides a detailed walkthrough of creating and running a data migration from an on-premises SQL Server database to an Azure SQL Database using Azure Database Migration Service (DMS).***
 
-🧭 1. Prerequisites
+# ***🧭 1. Prerequisites***
 
 Before starting the migration, ensure the following prerequisites are met:
 
