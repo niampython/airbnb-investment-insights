@@ -15,7 +15,7 @@ Before starting the migration, ensure the following prerequisites are met:
 ✅ You have permissions to create and manage Azure resources (e.g., Owner or Contributor role).
 
 ## ***⚙️ 2. Create an Azure Database Migration Service (DMS) Instance***
-Step 2.1 — Go to Azure Portal
+*** Step 2.1 ***— Go to Azure Portal ***
 
 Navigate to https://portal.azure.com
 
@@ -23,7 +23,7 @@ In the search bar, type Database Migration Services.
 
 Click Create.
 
-Step 2.2 — Fill in Required Details
+***Step 2.2 *** — Fill in Required Details
 
 Subscription: Select your active subscription.
 
@@ -41,7 +41,7 @@ Click Review + Create → Create.
 
 If you’re migrating from an on-premises SQL Server, DMS needs a self-hosted Integration Runtime (IR) — this acts as a secure bridge between your local server and Azure.
 
-Step 3.1 — Download and Install Integration Runtime
+*** Step 3.1 *** — Download and Install Integration Runtime
 
 After your DMS resource is created, open it in the portal.
 
@@ -58,7 +58,7 @@ During installation, enter the authentication key shown in the Azure portal to l
 Once registered, the status changes to Integration Runtime: Registered.
 
 ## ***🧱 4. Create a New Migration Project***
-Step 4.1 — Create a New Project
+*** Step 4.1 ***— Create a New Project
 
 Go to your DMS resource (e.g., TouristDataMigrationService).
 
@@ -75,7 +75,7 @@ Activity type: Offline data migration (data is copied once, and downtime is acce
 Click Create and run activity.
 
 ## ***🔐 5. Configure Source and Target Connections***
-Step 5.1 — Source Configuration (On-Prem SQL Server)
+*** Step 5.1 *** — Source Configuration (On-Prem SQL Server)
 
 Enter your on-prem SQL Server details:
 
@@ -92,7 +92,7 @@ Encryption: Enabled (recommended)
 
 ✅ Click Connect to validate.
 
-Step 5.2 — Target Configuration (Azure SQL Database)
+*** Step 5.2 *** — Target Configuration (Azure SQL Database)
 
 Enter your Azure SQL Database server details:
 
@@ -107,7 +107,7 @@ Password: The matching password
 
 ✅ Click Connect again to validate.
 
-🧩 6. Select Databases and Tables to Migrate
+### *** 🧩 6. Select Databases and Tables to Migrate ***
 
 Once both connections are validated:
 
@@ -123,7 +123,7 @@ If not, DMS can create it automatically.
 
 Review the table mappings (you can choose to migrate specific tables if needed).
 
-🔄 7. Configure Migration Settings
+### *** 🔄 7. Configure Migration Settings ***
 
 Choose Full Data Migration (copies entire data from source tables).
 
@@ -133,7 +133,7 @@ Review your configurations.
 
 Click Save and Run Migration.
 
-🕓 8. Monitor the Migration
+## *** 🕓 8. Monitor the Migration ***
 
 After the migration starts:
 
@@ -151,7 +151,7 @@ Duration and completion time
 
 When the status changes to Completed, verify data in Azure SQL Database.
 
-🧾 9. Post-Migration Validation
+## *** 🧾 9. Post-Migration Validation ***
 
 After migration:
 
@@ -172,18 +172,30 @@ SELECT COUNT(*) FROM [dbo].[YourTable];
 
 Compare with the on-prem SQL Server table to confirm successful data transfer.
 
-🔒 10. Security and Credential Management
+## *** 🔒 10. Security and Credential Management ***
+
 Aspect	Description	Recommendation
+
 🔑 Credentials	SQL Authentication used for both source and target connections	Store credentials securely using Azure Key Vault or local .env files (never in scripts)
+
 🔥 Firewall Rules	Azure SQL Database must allow the DMS service and on-prem IPs	Add IP rules in Azure SQL Server → Networking
+
 🔗 Integration Runtime	Acts as a secure data bridge	Install only on trusted on-prem servers
+
 🔐 Encryption	Ensures secure transmission between on-prem and Azure	Always enable encryption for both source and target
+
 🧰 11. Optional — Troubleshooting Tips
+
 Issue	Possible Cause	Fix
+
 ❌ Migration fails to start	Integration Runtime not registered	Go to DMS → Register Integration Runtime
+
 🔒 Login failed for source	Wrong authentication type or credentials	Use SQL Authentication (not Windows)
+
 🔌 Cannot connect to target	Azure SQL firewall blocking connection	Add IP of DMS or Integration Runtime to server-level firewall rules
+
 ⚠️ Data mismatch	Partial migration or timeout	Re-run the migration or perform incremental sync
+
 ✅ 12. Expected Outcome
 
 Once complete, you’ll have:
