@@ -40,7 +40,7 @@ The following diagram shows how data flows through the system — from source to
 
 ###  **🧱 Data Pipeline Architecture**
 
-![airbnb-investment-insights](Docs/architecture_diagram.png)
+![Airbnb Architecture Diagram](Docs/architecture_diagram.png)
 
 ## 🧰 **Technologies Used**
 
