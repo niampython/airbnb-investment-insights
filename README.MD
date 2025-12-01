@@ -154,13 +154,16 @@ PIVOT
 Historical attractions, beaches, and urban activities are the top motivators for visitors to the U.S.
 👉 Reinforces the investment case for **Virginia Beach**.
 
-### **💡 Recommendations to the Investor**
-**Recommendation	Description
-Target Market	Virginia Beach, VA
-Property Focus	Entire home/apartment with 5–7 bedrooms, 5–7 bathrooms
-Attraction Focus	Near beach, historical, and urban areas
-Expected Metrics	~60% occupancy rate, ~$470 daily rate
-Tourism Insight	Beach & Urban attractions drive most U.S. travel**
+## 💡 **Recommendations to the Investor**
+
+| **Recommendation** | **Description** |
+|--------------------|-----------------|
+| **Target Market** | Virginia Beach, VA |
+| **Property Focus** | Entire home/apartment with **5–7 bedrooms**, **5–7 bathrooms** |
+| **Attraction Focus** | Near beach, historical, and urban areas |
+| **Expected Metrics** | ~60% occupancy rate, ~$470 daily rate |
+| **Tourism Insight** | Beach & Urban attractions drive most U.S. travel |
+
 
 ### **📊 Screenshots**
 
