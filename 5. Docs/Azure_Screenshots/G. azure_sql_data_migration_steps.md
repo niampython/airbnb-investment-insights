@@ -42,7 +42,7 @@ Click Review + Create → Create.
 
 If you’re migrating from an on-premises SQL Server, DMS needs a self-hosted Integration Runtime (IR) — this acts as a secure bridge between your local server and Azure.
 
-*** Step 3.1 *** — Download and Install Integration Runtime
+***Step 3.1*** — Download and Install Integration Runtime
 
 After your DMS resource is created, open it in the portal.
 
@@ -76,7 +76,7 @@ Activity type: Offline data migration (data is copied once, and downtime is acce
 Click Create and run activity.
 
 ## ***🔐 5. Configure Source and Target Connections***
-*** Step 5.1 *** — Source Configuration (On-Prem SQL Server)
+***Step 5.1*** — Source Configuration (On-Prem SQL Server)
 
 Enter your on-prem SQL Server details:
 
@@ -93,7 +93,7 @@ Encryption: Enabled (recommended)
 
 ✅ Click Connect to validate.
 
-*** Step 5.2 *** — Target Configuration (Azure SQL Database)
+***Step 5.2*** — Target Configuration (Azure SQL Database)
 
 Enter your Azure SQL Database server details:
 
@@ -108,7 +108,7 @@ Password: The matching password
 
 ✅ Click Connect again to validate.
 
-### *** 🧩 6. Select Databases and Tables to Migrate ***
+### ***🧩 6. Select Databases and Tables to Migrate***
 
 Once both connections are validated:
 
@@ -124,7 +124,7 @@ If not, DMS can create it automatically.
 
 Review the table mappings (you can choose to migrate specific tables if needed).
 
-### *** 🔄 7. Configure Migration Settings ***
+### ***🔄 7. Configure Migration Settings***
 
 Choose Full Data Migration (copies entire data from source tables).
 
@@ -134,7 +134,7 @@ Review your configurations.
 
 Click Save and Run Migration.
 
-## *** 🕓 8. Monitor the Migration ***
+## ***🕓 8. Monitor the Migration***
 
 After the migration starts:
 
@@ -152,7 +152,7 @@ Duration and completion time
 
 When the status changes to Completed, verify data in Azure SQL Database.
 
-## *** 🧾 9. Post-Migration Validation ***
+## ***🧾 9. Post-Migration Validation***
 
 After migration:
 
@@ -173,7 +173,7 @@ SELECT COUNT(*) FROM [dbo].[YourTable];
 
 Compare with the on-prem SQL Server table to confirm successful data transfer.
 
-## *** 🔒 10. Security and Credential Management ***
+## ***🔒 10. Security and Credential Management ***
 
 Aspect	Description	Recommendation
 
