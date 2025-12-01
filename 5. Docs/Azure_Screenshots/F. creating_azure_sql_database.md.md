@@ -3,7 +3,7 @@
 This document outlines the full process of creating an Azure SQL Database, configuring firewall rules, enabling SQL Server authentication, and connecting to it using SQL Server Management Studio (SSMS).
 
 ## ***🧱 1. Create an Azure SQL Database***
-Step 1.1 — Go to Azure Portal
+***Step 1.1*** — Go to Azure Portal
 
 Navigate to https://portal.azure.com
 
