@@ -15,7 +15,7 @@ Before starting the migration, ensure the following prerequisites are met:
 ✅ You have permissions to create and manage Azure resources (e.g., Owner or Contributor role).
 
 ## ***⚙️ 2. Create an Azure Database Migration Service (DMS) Instance***
-*** Step 2.1 ***
+***Step 2.1***
 — Go to Azure Portal 
 Navigate to https://portal.azure.com
 
