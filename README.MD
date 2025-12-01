@@ -40,7 +40,9 @@ The following diagram shows how data flows through the system — from source to
 
 ###  **🧱 Data Pipeline Architecture**
 
-5. Docs/architecture_diagram.png
+<p align="center">
+  <img src="5.%20Docs/architecture_diagram.png" width="800">
+</p>
 
 
 ## 🧰 **Technologies Used**
