@@ -22,7 +22,8 @@ In the search bar, type Database Migration Services.
 
 Click Create.
 
-***Step 2.2*** — Fill in Required Details
+***Step 2.2***
+— Fill in Required Details
 
 Subscription: Select your active subscription.
 
