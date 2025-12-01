@@ -38,6 +38,19 @@ The following diagram shows how data flows through the system — from source to
 
 **SQL Analysis (SSMS) —** Insights and recommendations for the investor
 
+## 🧰 **Technologies Used**
+
+| **Category**        | **Tools / Services**                           |
+|---------------------|------------------------------------------------|
+| **Cloud**           | Azure SQL Database, Azure Data Migration Service |
+| **Orchestration**   | Apache Airflow (via Docker)                    |
+| **Programming**     | Python                                         |
+| **Querying**        | T-SQL                                          |
+| **Database**        | SQL Server                                     |
+| **Visualization**   | SSMS, Draw.io                                  |
+| **Version Control** | GitHub                                         |
+
+
 ## **⚙️ ETL Process**
 ### **1️⃣ Extraction**
 
@@ -174,23 +187,6 @@ Historical attractions, beaches, and urban activities are the top motivators for
 ### **🧮 SQL Analysis in SSMS**
 
 (image placeholder)
-
-### **🧰 Technologies Used**
-| **Category** | **Tools / Services** |
-
-| **Cloud**	 |    Azure SQL Database, Azure Data Migration Service |
-
-| **Orchestration**	  | Apache Airflow (via Docker) |
-
-| **Programming**	|    Python |
-
-| **Querying**	|   T-SQL |
-
-| **Database**	|    SQL Server |
-
-| **Visualization**	  |    SSMS, Draw.io |
-
-| **Version Control**|	GitHub |
 
 ### **🗓️ Scheduling & Monitoring**
 
