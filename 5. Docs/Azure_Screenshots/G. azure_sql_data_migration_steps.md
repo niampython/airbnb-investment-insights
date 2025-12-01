@@ -14,7 +14,7 @@ Before starting the migration, ensure the following prerequisites are met:
 
 ✅ You have permissions to create and manage Azure resources (e.g., Owner or Contributor role).
 
-⚙️ 2. Create an Azure Database Migration Service (DMS) Instance
+## ***⚙️ 2. Create an Azure Database Migration Service (DMS) Instance***
 Step 2.1 — Go to Azure Portal
 
 Navigate to https://portal.azure.com
@@ -37,7 +37,7 @@ Pricing Tier: Choose Standard or Premium depending on the size of your data.
 
 Click Review + Create → Create.
 
-🧩 3. Register an Integration Runtime (if required)
+## ***🧩 3. Register an Integration Runtime (if required)***
 
 If you’re migrating from an on-premises SQL Server, DMS needs a self-hosted Integration Runtime (IR) — this acts as a secure bridge between your local server and Azure.
 
@@ -57,7 +57,7 @@ During installation, enter the authentication key shown in the Azure portal to l
 
 Once registered, the status changes to Integration Runtime: Registered.
 
-🧱 4. Create a New Migration Project
+## ***🧱 4. Create a New Migration Project***
 Step 4.1 — Create a New Project
 
 Go to your DMS resource (e.g., TouristDataMigrationService).
@@ -74,7 +74,7 @@ Activity type: Offline data migration (data is copied once, and downtime is acce
 
 Click Create and run activity.
 
-🔐 5. Configure Source and Target Connections
+## ***🔐 5. Configure Source and Target Connections***
 Step 5.1 — Source Configuration (On-Prem SQL Server)
 
 Enter your on-prem SQL Server details:
