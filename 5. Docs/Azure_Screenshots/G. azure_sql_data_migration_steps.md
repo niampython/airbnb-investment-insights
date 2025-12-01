@@ -59,7 +59,7 @@ During installation, enter the authentication key shown in the Azure portal to l
 Once registered, the status changes to Integration Runtime: Registered.
 
 ## ***🧱 4. Create a New Migration Project***
-*** Step 4.1 ***— Create a New Project
+***Step 4.1***— Create a New Project
 
 Go to your DMS resource (e.g., TouristDataMigrationService).
 
