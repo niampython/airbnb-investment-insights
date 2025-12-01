@@ -38,6 +38,10 @@ The following diagram shows how data flows through the system — from source to
 
 **SQL Analysis (SSMS) —** Insights and recommendations for the investor
 
+###  **🧱 Data Pipeline Architecture**
+
+(![airbnb-investment-insights](Docs/architecture_diagram.png))
+
 ## 🧰 **Technologies Used**
 
 | **Category**        | **Tools / Services**                           |
@@ -180,9 +184,7 @@ Historical attractions, beaches, and urban activities are the top motivators for
 
 ### **📊 Screenshots**
 
-###  **🧱 Data Pipeline Architecture**
 
-(image placeholder)
 
 ### **🧮 SQL Analysis in SSMS**
 
