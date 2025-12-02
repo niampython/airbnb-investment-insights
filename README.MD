@@ -54,7 +54,6 @@ The following diagram shows how data flows through the system — from source to
 | **Programming**     | Python                                         |
 | **Querying**        | T-SQL                                          |
 | **Database**        | SQL Server                                     |
-| **Visualization**   | SSMS, Draw.io                                  |
 | **Version Control** | GitHub                                         |
 
 
